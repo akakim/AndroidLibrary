@@ -51,6 +51,6 @@ public class TestActivity extends AppCompatActivity implements TestListAdapter.O
 
     private void addTestListAdapter(){
         lst.add( new TestActivityItem("ContainerFragment","Strongswan에서 들어갈 뷰 샘플 예시.", FragmentContainerAct.class));
-        lst.add( new TestActivityItem("ContainerFragment",getString(R.string.title_gson_array), GsonArray.class));
+        lst.add( new TestActivityItem("GSONArray 테스트",getString(R.string.title_gson_array), GsonArray.class));
     }
 }

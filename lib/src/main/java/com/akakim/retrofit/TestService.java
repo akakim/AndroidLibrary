@@ -1,4 +1,4 @@
-package com.retrofit;
+package com.akakim.retrofit;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

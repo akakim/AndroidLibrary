@@ -1,4 +1,4 @@
-package com.logic;
+package com.akakim.logic;
 
 
 import android.content.BroadcastReceiver;

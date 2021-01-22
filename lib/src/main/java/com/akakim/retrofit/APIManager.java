@@ -1,14 +1,14 @@
-package com.retrofit;
+package com.akakim.retrofit;
 
 import android.content.Context;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.akakim.util.DLog;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.util.DLog;
 
 import java.io.IOException;
 import java.io.InputStream;

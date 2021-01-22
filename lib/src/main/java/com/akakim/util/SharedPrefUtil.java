@@ -1,4 +1,4 @@
-package com.util;
+package com.akakim.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,10 +6,16 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+
+/**
+ * Androidx에서 SharedPreferenceManager 클래스를 이용한다.
+ */
+
 public class SharedPrefUtil {
 
 	public static int DEFAULT_INT = 0;
 	public static String DEFAULT_STR = "";
+
 
 	public static SharedPreferences.OnSharedPreferenceChangeListener  listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
 		@Override
@@ -17,6 +23,7 @@ public class SharedPrefUtil {
 
 		}
 	};
+
 	public static SharedPreferences.Editor getSharedPref(Context context){
 		SharedPreferences share = context.getSharedPreferences("sdp", Context.MODE_PRIVATE);
 
@@ -41,7 +48,6 @@ public class SharedPrefUtil {
 
 	public static Long getLong(Context context, String key){
 		SharedPreferences share = context.getSharedPreferences("sdp", Context.MODE_PRIVATE);
-
 		return share.getLong( key ,DEFAULT_INT);
 	}
 
