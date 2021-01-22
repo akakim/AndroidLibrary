@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">KIMLibrary</string>
+    <string name="title_activity_fragment_container">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="title_gson_array">GSON 라이브러리 JsonArray 파싱예시</string>
+</resources>
