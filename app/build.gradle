@@ -21,6 +21,31 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    // Specifies a flavor dimension.
+    flavorDimensions "testapp"
+
+    productFlavors {
+        typeA {
+            dimension "testapp"
+            applicationIdSuffix ".dev"
+            manifestPlaceholders = [appLabel: "[개발] 라이브"]
+        }
+
+        typeB {
+            dimension "testapp"
+            applicationIdSuffix ".release"
+            manifestPlaceholders = [appLabel: "[배포] 라이브"]
+        }
+
+        typeC {
+            dimension "testapp"
+            applicationIdSuffix ".op"
+            manifestPlaceholders = [appLabel: "[운영자] 라이브"]
+        }
+
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
