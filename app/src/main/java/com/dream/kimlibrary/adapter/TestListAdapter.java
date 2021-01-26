@@ -34,8 +34,6 @@ public class TestListAdapter extends Adapter<TestListAdapter.TestListItemHolder>
 
         final TestListItemHolder holder =  new TestListItemHolder( LayoutInflater.from(context)
                 .inflate(R.layout.test_item, parent, false) );
-
-
         return holder;
 
     }

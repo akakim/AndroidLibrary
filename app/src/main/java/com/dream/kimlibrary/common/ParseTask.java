@@ -20,7 +20,6 @@ public class ParseTask extends Thread{
     int fileID;
 
     /**
-     *
      * @param callback
      * @param context activity에서 getApplicaionContext를 이용한다.
      * @param fileID

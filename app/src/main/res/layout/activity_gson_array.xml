@@ -18,14 +18,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.2"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvResult"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMain"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:textSize="15sp"
-        android:gravity="center"
-        android:padding="12dp"
-        android:text="tttt"
+        android:layout_height="600dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
         app:layout_constraintVertical_bias="0.7"/>
