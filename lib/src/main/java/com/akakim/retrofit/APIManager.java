@@ -2,14 +2,10 @@ package com.akakim.retrofit;
 
 import android.content.Context;
 
+import com.akakim.util.DLog;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
-import org.strongswan.android.R;
-import org.strongswan.android.data.CommonConstant;
-import org.strongswan.android.data.SDPService;
-import org.strongswan.android.utils.DLog;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,7 +40,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * API 요청에 대한 모든 것.
+ * API 요청에 공통 부분.
  */
 public class APIManager {
 
@@ -52,17 +48,17 @@ public class APIManager {
 	private static final String TIN_URL = "https://15.164.75.151:8443/m3p-np/"; // Protector 임.
 	private static String AFTER_LOGIN_TIM_URL = "";
 	private static Context context;
-	private static org.strongswan.android.network.APIManager instance;
+	private static APIManager instance;
 	private volatile String token ="";
 	private volatile String aid= "";
 
 	GsonBuilder gsonBuilder = new GsonBuilder();
 
 
-	public static org.strongswan.android.network.APIManager getInstance(){
+	public static APIManager getInstance(){
 
 		if( instance == null){
-			instance = new org.strongswan.android.network.APIManager();
+			instance = new APIManager();
 		}
 		return instance;
 	}
@@ -72,12 +68,12 @@ public class APIManager {
 	 * @param context
 	 */
 	public void init(Context context){
-		org.strongswan.android.network.APIManager.context = context;
+		APIManager.context = context;
 
 	}
 
 	// API 요청은 화면의 Context가 아닌 Application의 Constext를 무 조 건 넣는다.
-	private SDPService getSDPService(){
+	private TestService getTestService(){
 		try {
 		Retrofit retrofit = new Retrofit.Builder()
 			.baseUrl(TIN_URL)
@@ -85,7 +81,7 @@ public class APIManager {
 			.addConverterFactory(GsonConverterFactory.create(gsonBuilder.create()))
 			.build();
 
-		return retrofit.create( SDPService.class ) ;
+		return retrofit.create( TestService.class ) ;
 		} catch (Exception e ) {
 			e.printStackTrace();
 			Retrofit retrofit = new Retrofit.Builder()
@@ -93,12 +89,12 @@ public class APIManager {
 				.addConverterFactory(GsonConverterFactory.create(gsonBuilder.create()))
 				.build();
 
-			return retrofit.create( SDPService.class ) ;
+			return retrofit.create( TestService.class ) ;
 		}
 	}
 
 	// API 요청은 화면의 Context가 아닌 Application의 Constext를 넣는다.
-	private SDPService getSDPServiceUsingToken(){
+	private TestService getTestServiceUsingToken(){
 		GsonBuilder testBuilder = new GsonBuilder();
 		testBuilder.serializeNulls();
 		if("".equals(AFTER_LOGIN_TIM_URL)){
@@ -115,14 +111,14 @@ public class APIManager {
 				.addConverterFactory(GsonConverterFactory.create(gsonBuilder.create()))
 				.build();
 
-			return retrofit.create( SDPService.class ) ;
+			return retrofit.create( TestService.class ) ;
 		} catch (Exception e ) {
 			e.printStackTrace();
 			Retrofit retrofit = new Retrofit.Builder()
 				.baseUrl(AFTER_LOGIN_TIM_URL + "/")
 				.addConverterFactory(GsonConverterFactory.create(gsonBuilder.create()))
 				.build();
-			return retrofit.create(SDPService.class);
+			return retrofit.create(TestService.class);
 		}
 	}
 
@@ -304,7 +300,7 @@ public class APIManager {
 	 * @param apiCallback
 	 */
 	public void authenticate(String otpPassword, String acId, String acPw, APICallback apiCallback){
-		SDPService service = getSDPService();
+		TestService service = getTestService();
 
 		HashMap<String, Object> obj = new HashMap<>();
 			obj.put("aid",aid);
@@ -314,75 +310,8 @@ public class APIManager {
 
 		Call<JsonObject> authRequest = service.authenticate( obj );
 
-		org.strongswan.android.network.JsonObjectCommonCallback callback= new org.strongswan.android.network.JsonObjectCommonCallback(apiCallback, org.strongswan.android.data.CommonConstant.API.AUTHENTICATE);
+		JsonObjectCommonCallback callback= new JsonObjectCommonCallback(apiCallback, CommonConstant.API.AUTHENTICATE);
 		authRequest.enqueue( callback );
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	public void login( APICallback apiCallback){
-		SDPService service = getSDPServiceUsingToken();
-
-		HashMap<String, Object> obj = new HashMap<>();
-
-		obj.put("aid",aid);
-		obj.put("token",token);
-
-		Call<JsonObject> authRequest = service.login(  obj );
-
-		org.strongswan.android.network.JsonObjectCommonCallback callback= new org.strongswan.android.network.JsonObjectCommonCallback(apiCallback, org.strongswan.android.data.CommonConstant.API.LOGIN);
-		authRequest.enqueue( callback );
-
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	public void ipsecDefine(String aid, APICallback apiCallback){
-		SDPService service = getSDPServiceUsingToken();
-
-		HashMap<String, Object> obj = new HashMap<>();
-			obj.put("aid",aid);
-			obj.put("token",token);
-
-		Call<JsonObject> authRequest = service.login(  obj );
-		Headers headers = authRequest.request().headers();
-
-		DLog.i( "token : " + token );
-
-		org.strongswan.android.network.JsonObjectCommonCallback callback= new org.strongswan.android.network.JsonObjectCommonCallback(apiCallback, org.strongswan.android.data.CommonConstant.API.DEFINE_IPSEC);
-		authRequest.enqueue( callback );
-
-	}
-
-	public void ipsecConf(APICallback apiCallback){
-		SDPService service = getSDPServiceUsingToken();
-		Call<JsonArray> ipsecRequest = service.getIPSecConf( aid );
-
-		org.strongswan.android.network.JsonArrayCommonCallback commonCallback = new org.strongswan.android.network.JsonArrayCommonCallback(apiCallback, org.strongswan.android.data.CommonConstant.API.GET_IPSEC_CONF)
-		ipsecRequest.enqueue(
-			new Callback<JsonArray>() {
-				@Override
-				public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
-
-					if( response.code() == 200){
-						apiCallback.onJsonArrayResponse( call, response);
-					} else {
-						apiCallback.onJsonArrayResponse( call,response );
-					}
-				}
-
-				@Override
-				public void onFailure(Call<JsonArray> call, Throwable t) {
-					apiCallback.onJsonArrayFailure(call,t);
-
-				}
-			}
-		);
-
 	}
 
 	public boolean isAidExist(){
@@ -425,12 +354,12 @@ public class APIManager {
 	 * @param id 변수값을 틀릴 수 있으니 방지하기 위해서 Enum으로 생성함.
 	 * @return
 	 */
-	public Response<JsonObject> addAPIID(Response<JsonObject> response , org.strongswan.android.data.CommonConstant.API id){
+	public Response<JsonObject> addAPIID(Response<JsonObject> response , CommonConstant.API id){
 
 		if( response.body() == null ){
 			return response;
 		} else {
-			response.body().addProperty(org.strongswan.android.data.CommonConstant.API.KEY.toString(),id.toString());
+			response.body().addProperty(CommonConstant.API.KEY.toString(),id.toString());
 			return response;
 		}
 	}
