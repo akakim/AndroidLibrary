@@ -243,12 +243,13 @@ public class APIManager {
 	 * localhost 라는 인증서 정보로 SSL 연결을 시도한다.
 	 * @param context
 	 */
+	@Deprecated
 	public static SSLSocketFactory getPinnedCertSSLSocketFactory(Context context){
 		InputStream caInput = null;
 		try{
 
 			CertificateFactory cf = CertificateFactory.getInstance("X.509");
-			caInput = context.getResources().openRawResource(R.raw.local_tomcat);
+//			caInput = context.getResources().openRawResource(R.raw.local_tomcat);
 			Certificate ca = null;
 			ca = cf.generateCertificate( caInput );
 			System.out.println("ca=" + ((X509Certificate) ca).getSubjectDN());
@@ -364,28 +365,28 @@ public class APIManager {
 		}
 	}
 
-	public void debugHTTPHeader(Request authRequest){
-		Headers headers = authRequest.request().headers();
-
-		if( headers.size() == 0 ){
-			DLog.i ( "header size is 0 ");
-		}
-		for( int k = 0; k< headers.names().size(); k++){
-			DLog.i ( "header Key : " + headers.name(k));
-			DLog.i ( "header value : " + headers.get(headers.name(k) ));
-		}
-
-		Buffer buffer = new Buffer();
-
-		try {
-			authRequest.request().body().writeTo( buffer );
-			DLog.i( "login Request 바디.내용  " + buffer.readString(StandardCharsets.UTF_8) );
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		authRequest.request().body();
-		DLog.i( "token : " + token );
-	}
+//	public void debugHTTPHeader(Request authRequest){
+//		Headers headers = authRequest.request().headers();
+//
+//		if( headers.size() == 0 ){
+//			DLog.i ( "header size is 0 ");
+//		}
+//		for( int k = 0; k< headers.names().size(); k++){
+//			DLog.i ( "header Key : " + headers.name(k));
+//			DLog.i ( "header value : " + headers.get(headers.name(k) ));
+//		}
+//
+//		Buffer buffer = new Buffer();
+//
+//		try {
+//			authRequest.request().body().writeTo( buffer );
+//			DLog.i( "login Request 바디.내용  " + buffer.readString(StandardCharsets.UTF_8) );
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		authRequest.request().body();
+//		DLog.i( "token : " + token );
+//	}
 }

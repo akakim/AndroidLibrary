@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import com.dream.kimlibrary.activity.FragmentContainerAct;
 import com.dream.kimlibrary.activity.GsonArray;
+import com.dream.kimlibrary.activity.UIComponentEx;
 import com.dream.kimlibrary.adapter.TestListAdapter;
 import com.dream.kimlibrary.model.TestActivityItem;
 
@@ -52,5 +53,6 @@ public class TestActivity extends AppCompatActivity implements TestListAdapter.O
     private void addTestListAdapter(){
         lst.add( new TestActivityItem("ContainerFragment","Strongswan에서 들어갈 뷰 샘플 예시.", FragmentContainerAct.class));
         lst.add( new TestActivityItem("GSONArray 테스트",getString(R.string.title_gson_array), GsonArray.class));
+        lst.add( new TestActivityItem("UI Fragment 예시",getString(R.string.title_gson_array), UIComponentEx.class));
     }
 }

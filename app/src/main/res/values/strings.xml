@@ -6,4 +6,8 @@
     <string name="title_notifications">Notifications</string>
 
     <string name="title_gson_array">GSON 라이브러리 JsonArray 파싱예시</string>
+    <string name="title_fragment">fragment를 이용한 UI</string>
+
+    <!-- html포맷을 String으로 붙이는 예시.    -->
+    <string name="tnc_notice_details"><![CDATA[<p>Trusted Network Connect (TNC) allows server operators to assess the health of a client device.</p><p>For that purpose the server operator may request data such as a unique identifier, a list of installed packages, system settings, or cryptographic checksums of files.</p><b>Any data will be sent only after verifying the server\'s identity.</b>]]></string>
 </resources>
