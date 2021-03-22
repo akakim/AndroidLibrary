@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KIMLibrary">
-        <activity android:name=".activity.KakaoMapActivity"></activity>
+        <activity android:name=".activity.ui.ExpandableList"></activity>
+        <activity android:name=".activity.KakaoMapActivity" />
         <activity android:name=".activity.UIComponentEx" />
         <activity android:name=".activity.WifiManagerActivity" />
         <activity android:name=".activity.GsonArray" />
@@ -28,11 +29,10 @@
     <meta-data
         android:name="com.kakao.sdk.AppKey"
         android:value="d3eeac9ac39b8ee4ee4ed635c5d650a2" />
-
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
 </manifest>
